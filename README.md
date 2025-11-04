@@ -12,43 +12,60 @@ Ambiente prático para estudo das principais vulnerabilidades web da OWASP Top 1
 - **`database_setup.sql`** - Script para criar ambiente de teste
 - **Payloads de bypass**: `' OR '1'='1`, `' UNION SELECT 1,2,3-- -`
 
+### 🎯 [A07:2021 - XSS](xss/)
+**Cross-Site Scripting Lab** - Execução de código malicioso no cliente:
+
+- **`vulnerable_chat.php`** - Chat vulnerável a XSS
+- **`secure_chat.php`** - Versão protegida com sanitização
+- **Payloads**: `<script>alert('XSS')</script>`, `<img src=x onerror=alert(1)>`
+
+### 🔐 [A02:2021 - Broken Authentication](broken-auth/)
+**Falhas em Autenticação** - Vulnerabilidades em sistemas de login:
+
+- **`weak_login.php`** - Senhas fracas, sem rate limiting
+- **`secure_login.php`** - Bcrypt, rate limiting, timeout
+- **Ataques**: Credential stuffing, brute force, session hijacking
+
 ## 🚀 Como Usar
 
 ### SQL Injection Lab
-`# 1. Configurar banco de dados`
 `mysql -u root -p < sql-injection/database_setup.sql`
-
-`# 2. Executar servidor web local`
 `php -S localhost:8000`
+`# Acesse: http://localhost:8000/sql-injection/vulnerable_login.php`
 
-`# 3. Acessar no navegador`
-`# Vulnerável: http://localhost:8000/sql-injection/vulnerable_login.php`
-`# Seguro: http://localhost:8000/sql-injection/secure_login.php`
+### XSS Lab  
+`php -S localhost:8000`
+`# Acesse: http://localhost:8000/xss/vulnerable_chat.php`
+
+### Broken Auth Lab
+`php -S localhost:8000` 
+`# Acesse: http://localhost:8000/broken-auth/weak_login.php`
 
 ## 🛡️ O que Aprendi
 
-### SQL Injection
-- **Como funciona**: Injeção de código SQL através de inputs não validados
-- **Impacto**: Bypass de autenticação, vazamento de dados, execução de comandos
-- **Prevenção**: Prepared Statements, input validation, least privilege
+### Desenvolvimento Seguro
+- **Princípio do menor privilégio**
+- **Validação de input** em client e server
+- **Defesa em profundidade** - múltiplas camadas
+- **Security by design** - segurança desde o início
 
-### Segurança em Camadas
-- **Defesa em profundidade**: Múltiplas camadas de proteção
-- **Validação**: Client-side + Server-side
-- **Monitoramento**: Logs e detecção de ataques
+### Vulnerabilidades Web
+- **SQL Injection**: Manipulação de queries SQL
+- **XSS**: Execução de scripts no cliente
+- **Broken Auth**: Falhas em sistemas de autenticação
 
-## 📚 Próximos Passos
+## 📚 Próximas Implementações
 
-- [ ] Implementar XSS (Cross-Site Scripting)
-- [ ] Criar lab de Broken Authentication  
-- [ ] Adicionar Security Misconfiguration
-- [ ] Desenvolver CSRF (Cross-Site Request Forgery)
+- [ ] Security Misconfiguration
+- [ ] CSRF (Cross-Site Request Forgery)  
+- [ ] Insecure Deserialization
+- [ ] Using Components with Known Vulnerabilities
 
 ## ⚠️ AVISO DE SEGURANÇA
 
 **ESTE LAB É APENAS PARA FINS EDUCACIONAIS!**
 - Use apenas em ambiente controlado
-- Nunca teste em sistemas reais
+- Nunca teste em sistemas reais  
 - Sempre obtenha permissão antes de testar
 
 ---
